@@ -6,9 +6,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const { code, state } = req.query;
 
   // Validate the state parameter to prevent CSRF attacks
-  const storedState = req.session?.confluenceOAuthState;
-
-  // Validate the state parameter to prevent CSRF attacks
   if (state !== YOUR_USER_BOUND_VALUE) {
     return res.status(400).json({ error: 'Invalid state parameter' });
   }
