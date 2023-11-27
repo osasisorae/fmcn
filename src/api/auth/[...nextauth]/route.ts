@@ -1,7 +1,7 @@
 // pages/api/auth/[...nextauth].ts
 import { NextApiRequest, NextApiResponse } from 'next';
 import NextAuth from 'next-auth';
-import Providers from 'next-auth/providers';
+import { Providers } from 'next-auth/providers';
 import axios from 'axios';
 
 export default NextAuth({
