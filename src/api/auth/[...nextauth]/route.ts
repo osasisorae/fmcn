@@ -1,23 +1,28 @@
-import NextAuth from 'next-auth'
-import GoogleProvider from 'next-auth/providers/google'
-import AtlassianProvider from 'next-auth/providers/atlassian'
-export const handler=NextAuth({
-   
-    providers:[
-        GoogleProvider({
-    clientId:process.env.GOOGLE_CLIENT_ID??"",
-    
-    clientSecret:process.env.GOOGLE_CLIENT_SECRET??""
-}),
-AtlassianProvider({
-    clientId:process.env.GOOGLE_CLIENT_ID??"",
-    
-    clientSecret:process.env.GOOGLE_CLIENT_SECRET??""
-})
+// pages/api/auth/[...nextauth].ts
+import { NextApiRequest, NextApiResponse } from 'next';
+import NextAuth from 'next-auth';
+import Providers from 'next-auth/providers';
+import axios from 'axios';
 
-
-    ]
-
-})
-
-export {handler as GET, handler as POST}
+export default NextAuth({
+  providers: [
+    Providers.Atlassian({
+      clientId: process.env.CONFLUENCE_CLIENT_ID,
+      clientSecret: process.env.CONFLUENCE_CLIENT_SECRET,
+    }),
+  ],
+  callbacks: {
+    async signIn(user, account, profile) {
+      // Do something when the user signs in
+      return true;
+    },
+    async jwt(token, user, account, profile, isNewUser) {
+      // Do something with the token
+      return token;
+    },
+    async session(session, token) {
+      // Do something with the session
+      return session;
+    },
+  },
+});
