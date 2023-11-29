@@ -44,7 +44,7 @@ const GetStarted:React.FC<{
   //   'prompt=consent',
   // ].join('&')}`;
 
-  console.log(confluenceAuthUrl)
+  // console.log(confluenceAuthUrl)
   // console.log(client_id)
 
     return(
