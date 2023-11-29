@@ -16,22 +16,6 @@ const generateRandomAlphabeticString = (length: any) => {
   return result;
 };
 
-const url_state = generateRandomAlphabeticString(7);
-const client_id = process.env.CONFLUENCE_CLIENT_ID || '';
-
-const confluenceAuthUrl = `https://auth.atlassian.com/authorize?${[
-  `audience=${encodeURIComponent('api.atlassian.com')}`,
-  `client_id=${encodeURIComponent(client_id)}`,
-  `scope=${encodeURIComponent('write:confluence-content')}`,
-  `redirect_uri=${encodeURIComponent('https://fmcn.vercel.app/dashboard')}`,
-  `state=${encodeURIComponent(url_state)}`,
-  'response_type=code',
-  'prompt=consent',
-].join('&')}`;
-
-console.log(confluenceAuthUrl)
-console.log(client_id)
-
 
 const GetStarted:React.FC<{
     isOpen:boolean;
@@ -43,7 +27,23 @@ const GetStarted:React.FC<{
     function closeModal(){
         setIsOpen(false)
     }
-const {appState,setAppState}=useContext(AppContext)
+  const {appState,setAppState}=useContext(AppContext)
+
+  const url_state = generateRandomAlphabeticString(7);
+  const client_id = process.env.CONFLUENCE_CLIENT_ID || '';
+
+  const confluenceAuthUrl = `https://auth.atlassian.com/authorize?${[
+    `audience=${encodeURIComponent('api.atlassian.com')}`,
+    `client_id=${encodeURIComponent(client_id)}`,
+    `scope=${encodeURIComponent('write:confluence-content')}`,
+    `redirect_uri=${encodeURIComponent('https://fmcn.vercel.app/dashboard')}`,
+    `state=${encodeURIComponent(url_state)}`,
+    'response_type=code',
+    'prompt=consent',
+  ].join('&')}`;
+
+  console.log(confluenceAuthUrl)
+  console.log(client_id)
 
     return(
         <>
