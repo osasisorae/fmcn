@@ -29,6 +29,9 @@ const confluenceAuthUrl = `https://auth.atlassian.com/authorize?${[
   'prompt=consent',
 ].join('&')}`;
 
+console.log(confluenceAuthUrl)
+console.log(client_id)
+
 
 const GetStarted:React.FC<{
     isOpen:boolean;
