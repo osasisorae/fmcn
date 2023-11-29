@@ -31,20 +31,21 @@ const LoginModal: React.FC<{
   const { appState, setAppState } = useContext(AppContext);
 
   const url_state = generateRandomAlphabeticString(7);
-  const client_id = process.env.CONFLUENCE_CLIENT_ID || '';
+  // const client_id = process.env.CONFLUENCE_CLIENT_ID || '';
 
-  const confluenceAuthUrl = `https://auth.atlassian.com/authorize?${[
-    `audience=${encodeURIComponent('api.atlassian.com')}`,
-    `client_id=${encodeURIComponent(client_id)}`,
-    `scope=${encodeURIComponent('write:confluence-content')}`,
-    `redirect_uri=${encodeURIComponent('https://fmcn.vercel.app/dashboard')}`,
-    `state=${encodeURIComponent(url_state)}`,
-    'response_type=code',
-    'prompt=consent',
-  ].join('&')}`;
+  // const confluenceAuthUrl = `https://auth.atlassian.com/authorize?${[
+  //   `audience=${encodeURIComponent('api.atlassian.com')}`,
+  //   `client_id=${encodeURIComponent(client_id)}`,
+  //   `scope=${encodeURIComponent('write:confluence-content')}`,
+  //   `redirect_uri=${encodeURIComponent('https://fmcn.vercel.app/dashboard')}`,
+  //   `state=${encodeURIComponent(url_state)}`,
+  //   'response_type=code',
+  //   'prompt=consent',
+  // ].join('&')}`;
+  const confluenceAuthUrl = `https://auth.atlassian.com/authorize?audience=api.atlassian.com&client_id=HVD0eQUowBXTkpK7yVjecSzLcC75Tl9n&scope=write%3Aconfluence-content&redirect_uri=https%3A%2F%2Ffmcn.vercel.app%2Fdashboard&state=${encodeURIComponent(url_state)}&response_type=code&prompt=consent`
 
   console.log(confluenceAuthUrl)
-  console.log(client_id)
+  // console.log(client_id)
 
   return (
     <>
