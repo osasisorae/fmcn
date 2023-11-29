@@ -30,6 +30,8 @@ const confluenceAuthUrl = `https://auth.atlassian.com/authorize?${[
 
 
 console.log(confluenceAuthUrl)
+console.log(client_id)
+
 const LoginModal: React.FC<{
   isOpen: boolean;
   setIsOpen: (value: boolean) => void;
