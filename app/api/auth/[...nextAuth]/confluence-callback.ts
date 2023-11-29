@@ -27,7 +27,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Handle the response (e.g., store the access token)
     const accessToken = response.data.access_token;
     // Do something with the access token, such as storing it in a session or database
-
+    console.log(accessToken)
     // Redirect the user to the desired page
     res.redirect('/dashboard');
   } catch (error) {
