@@ -17,18 +17,17 @@ const generateRandomAlphabeticString = (length: any) => {
   return result;
 };
 
-const app_state = generateRandomAlphabeticString(7);
+const url_state = generateRandomAlphabeticString(7);
 const client_id = process.env.CONFLUENCE_CLIENT_ID || '';
 
 // console.log(client_id)
 // console.log(app_state)
-const confluenceAuthUrl = `https://auth.atlassian.com/authorize?audience=api.atlassian.com&client_id=${encodeURIComponent(client_id)}&scope=write%3Aconfluence-content%20read%3Aconfluence-content.all%20readonly%3Acontent.attachment%3Aconfluence&redirect_uri=${encodeURIComponent('https://fmcn.vercel.app/dashboard')}&state=${encodeURIComponent(app_state)}&response_type=code&prompt=consent`;
+const confluenceAuthUrl = `https://auth.atlassian.com/authorize?audience=api.atlassian.com&client_id=${encodeURIComponent(client_id)}&scope=write%3Aconfluence-content&redirect_uri=https%3A%2F%2Ffmcn.vercel.app%2Fdashboard&state=${encodeURIComponent(url_state)}&response_type=code&prompt=consent`;
 // console.log(confluenceAuthUrl)
 
 
 function handleConfluenceLogin() {
-  // Redirect the user to the Confluence authorization URL
-  window.open(confluenceAuthUrl, '_blank');
+  window.location.href = confluenceAuthUrl;
 }
 
 const LoginModal: React.FC<{
@@ -91,20 +90,21 @@ const LoginModal: React.FC<{
                         height="50"
                       />
                     </Link>
-                    <div className="mt-12 ">
-                      <p
-                        className="text-grey-200 bg-primary-success px-5 flex justify-center mx-auto  text-lg font-[500] py-3 rounded-full mt-9 w-3/4  text-center gap-x-4 cursor-pointer"
+                    <div className="mt-12">
+                      <button
+                        type="button"
+                        className="text-grey-200 bg-primary-success px-5 flex justify-center mx-auto text-lg font-[500] py-3 rounded-full mt-9 w-3/4 text-center gap-x-4 cursor-pointer"
                         onClick={handleConfluenceLogin}
                       >
                         <Image
                           src="images/confluence-logo.svg"
-                          className="h-6 w-6 "
+                          className="h-6 w-6"
                           width="35"
                           alt="confluence-logo"
                           height="33"
                         />{" "}
                         Continue with Confluence
-                      </p>
+                      </button>
                     </div>
                     <section className="flex  text-center mt-6 justify-between w-3/4 mx-auto align-middle ">
                       <hr className="h-px my-3 bg-gray-200 border-0 dark:bg-gray-700 w-[45%]" />{" "}
