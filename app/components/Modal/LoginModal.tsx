@@ -6,7 +6,7 @@ import Link from "next/link";
 import React, { Fragment, useContext } from "react";
 
 
-const generateRandomAlphabeticString = (length) => {
+const generateRandomAlphabeticString = (length: any) => {
   const letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
   let result = '';
 
