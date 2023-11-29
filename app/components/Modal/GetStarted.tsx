@@ -1,9 +1,34 @@
 import { AppContext } from '@/app/container';
-import { initiateConfluenceOAuth } from '@/app/utils';
 import { Dialog, Transition } from '@headlessui/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { Fragment, useContext } from 'react'
+
+
+const generateRandomAlphabeticString = (length: any) => {
+  const letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  let result = '';
+
+  for (let i = 0; i < length; i++) {
+    result += letters.charAt(Math.floor(Math.random() * letters.length));
+  }
+
+  return result;
+};
+
+const url_state = generateRandomAlphabeticString(7);
+const client_id = process.env.CONFLUENCE_CLIENT_ID || '';
+
+const confluenceAuthUrl = `https://auth.atlassian.com/authorize?${[
+  `audience=${encodeURIComponent('api.atlassian.com')}`,
+  `client_id=${encodeURIComponent(client_id)}`,
+  `scope=${encodeURIComponent('write:confluence-content')}`,
+  `redirect_uri=${encodeURIComponent('https://fmcn.vercel.app/dashboard')}`,
+  `state=${encodeURIComponent(url_state)}`,
+  'response_type=code',
+  'prompt=consent',
+].join('&')}`;
+
 
 const GetStarted:React.FC<{
     isOpen:boolean;
@@ -73,20 +98,27 @@ const {appState,setAppState}=useContext(AppContext)
                     src="/images/close-btn.svg" alt="close btn" width="50" height="50" />
                 </Link>
 
-<div className='mt-12 '>
-<p  className="text-grey-200 bg-primary-success px-5 flex justify-center mx-auto  text-lg font-[500] py-3 rounded-full mt-9 w-3/4  text-center gap-x-4 cursor-pointer"
-onClick={initiateConfluenceOAuth}
->
-<Image src="images/confluence-logo.svg" className="h-6 w-6 " width="35" alt="confluence-logo" height="33" /> Continue with Confluence
-</p>
-</div>
-<section className='flex  text-center mt-6 justify-between w-3/4 mx-auto align-middle '>
-<hr className='h-px my-3 bg-gray-200 border-0 dark:bg-gray-700 w-[45%]'/>  Or <hr className='h-px my-3 bg-gray-200 border-0 dark:bg-gray-700 w-[45%]'/>
-</section>
+                <div className="mt-12">
+                  <Link href={confluenceAuthUrl}>
+                    <div className="text-grey-200 bg-primary-success px-5 flex justify-center mx-auto text-lg font-[500] py-3 rounded-full mt-9 w-3/4 text-center gap-x-4 cursor-pointer">
+                      <Image
+                        src="images/confluence-logo.svg"
+                        className="h-6 w-6"
+                        width="35"
+                        alt="confluence-logo"
+                        height="33"
+                      />{" "}
+                      Continue with Confluence
+                    </div>
+                  </Link>
+                </div>
+                <section className='flex  text-center mt-6 justify-between w-3/4 mx-auto align-middle '>
+                <hr className='h-px my-3 bg-gray-200 border-0 dark:bg-gray-700 w-[45%]'/>  Or <hr className='h-px my-3 bg-gray-200 border-0 dark:bg-gray-700 w-[45%]'/>
+                </section>
 
-<p  className="text-black border-2 border-[#424245] px-5 flex justify-center mx-auto  text-lg font-[500] py-3 rounded-full mt-9 w-3/4  text-center gap-x-4 ">
-<Image src="images/google-logo.svg" className="h-6 w-6 " width="35" alt="confluence-logo" height="33" />Sign up with Google
-</p>
+                <p  className="text-black border-2 border-[#424245] px-5 flex justify-center mx-auto  text-lg font-[500] py-3 rounded-full mt-9 w-3/4  text-center gap-x-4 ">
+                <Image src="images/google-logo.svg" className="h-6 w-6 " width="35" alt="confluence-logo" height="33" />Sign up with Google
+                </p>
 
 
                     <p className="text-sm text-gray-500 w-3/4 mx-auto mt-12">
